@@ -13,9 +13,12 @@ public class Topic_00_Template {
    String osName = System.getProperty("os.name");
    @BeforeClass
    public void beforeClass() {
+//Windows
    if (osName.contains("Windows")){
 	   System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-	   }else {
+	   }
+//MacOS
+   else { 		  
 		   System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver.exe");
 	   }
 	 
