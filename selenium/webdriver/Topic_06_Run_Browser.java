@@ -2,6 +2,7 @@ package webdriver;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -59,7 +60,7 @@ public class Topic_06_Run_Browser {
 		   }else {
 			   System.setProperty("webdriver.edge.driver", projectPath + "/browserDrivers/edgedriver.exe");
 		   }
-		   driver= new ChromeDriver();
+		   driver= new EdgeDriver();
 		   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		   
 		   driver.get("https://tiki.vn");
