@@ -38,6 +38,7 @@ public class Topic_06_Run_Browser {
 	   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	   
 	   driver.get("https://tiki.vn");
+	   driver.quit();
    }
 
    @Test
@@ -51,6 +52,7 @@ public class Topic_06_Run_Browser {
 		   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		   
 		   driver.get("https://tiki.vn");
+		   driver.quit();
    }
 
    @Test
@@ -64,11 +66,7 @@ public class Topic_06_Run_Browser {
 		   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		   
 		   driver.get("https://tiki.vn");
-   }
-
-   @AfterClass
-   public void afterClass() {
-      driver.quit();
+		   driver.quit();
    }
 
 }
