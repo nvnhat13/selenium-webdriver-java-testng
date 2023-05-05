@@ -52,10 +52,20 @@ public class Topic_07_WebBrowser_Commands {
 	   // Cách 1: Dùng cho 1 step
 	   Assert.assertEquals(driver.getCurrentUrl(), "https://www.youtube.com/watch?v=XSb29GyR-Vc&ab_channel=AutomationFC");
 	   // Cách 2: Dùng cho nhiều hơn 1 step thì mới khai báo biến
+	   // Code rườm rà, tốn bộ nhớ
 	   String homeUrl = driver.getCurrentUrl();
 	   Assert.assertEquals(driver.getCurrentUrl(), "https://www.youtube.com/watch?v=XSb29GyR-Vc&ab_channel=AutomationFC");
-
+	   // Lấy ra code HTML/ CSS/ JS của page hiện tại để verify
+	   driver.getPageSource(); //--> ít dùng
 	   
+	   // Lấy title của Page hiện tại
+	   Assert.assertEquals(driver.getTitle(),"Mobile");
+	   // Dùng cho Window/ tab
+	   driver.getWindowHandle(); // --> lấy ID của window hiện tại	 
+	   driver.getWindowHandles(); // --> lấy ID của tất cả window/tab 
+	   //
+	   driver.manage();
+
 	   
 	   
 	   
