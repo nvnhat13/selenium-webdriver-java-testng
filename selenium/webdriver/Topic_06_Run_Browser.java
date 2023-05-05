@@ -24,17 +24,18 @@ public class Topic_06_Run_Browser {
       driver = new FirefoxDriver();
       driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
       driver.manage().window().maximize();
-    
+      driver.quit();
    }
-
+// Phải có sự tương thích giữa các version của driver và browser
    @Test
    public void TC_01_Firefox() { 
+	  //Dùng với selenium 3 4
 	   if (osName.contains("Windows")){
 	   System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 	   }else {
 		   System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
 	   }
-	   driver= new FirefoxDriver();
+	   driver= new FirefoxDriver();// selenium 2 chỉ cần dòng này là đủ
 	   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	   
 	   driver.get("https://tiki.vn");
@@ -58,9 +59,9 @@ public class Topic_06_Run_Browser {
    @Test
    public void TC_03_Edge() {
 	   if (osName.contains("Windows")){
-		   System.setProperty("webdriver.edge.driver", projectPath + "\\browserDrivers\\edgedriver.exe");
+		   System.setProperty("webdriver.edge.driver", projectPath + "\\browserDrivers\\msedgedriver.exe");
 		   }else {
-			   System.setProperty("webdriver.edge.driver", projectPath + "/browserDrivers/edgedriver");
+			   System.setProperty("webdriver.edge.driver", projectPath + "/browserDrivers/msedgedriver");
 		   }
 		   driver= new EdgeDriver();
 		   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
