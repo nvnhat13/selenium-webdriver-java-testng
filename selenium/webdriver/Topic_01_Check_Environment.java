@@ -1,6 +1,8 @@
 package webdriver;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
@@ -17,7 +19,9 @@ public class Topic_01_Check_Environment {
 	   System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
       driver = new FirefoxDriver();
       driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-      driver.manage().window().maximize();
+//      driver.manage().window().maximize();
+      driver.manage().window().setPosition(new Point(200,200));
+      driver.manage().window().setSize(new Dimension(800,800));
       driver.get("https://demo.guru99.com/v4/");
    }
 

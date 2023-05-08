@@ -1,13 +1,20 @@
 package webdriver;
 import java.util.concurrent.TimeUnit;
 
+import javax.print.DocFlavor.URL;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.logging.LogType;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import net.bytebuddy.implementation.bytecode.StackManipulation.Size;
 
 public class Topic_07_WebBrowser_Commands {
 	
@@ -63,13 +70,56 @@ public class Topic_07_WebBrowser_Commands {
 	   // Dùng cho Window/ tab
 	   driver.getWindowHandle(); // --> lấy ID của window hiện tại	 
 	   driver.getWindowHandles(); // --> lấy ID của tất cả window/tab 
-	   //
-	   driver.manage();
+	   //Cookies
+	   driver.manage().getCookies();
+	   //Log của browser
+	   driver.manage().logs().get(LogType.BROWSER);
+	   // Để chờ cho element xuất hiện trong bao lâu
+	   // Dùng ở 2 hàm: findElement và findElements
+	   driver.manage().timeouts().implicitlyWait(1, TimeUnit.DAYS);
+	   driver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
+	   driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+	   driver.manage().timeouts().implicitlyWait(1, TimeUnit.HOURS);
+	   driver.manage().timeouts().implicitlyWait(1, TimeUnit.MILLISECONDS);
+	  // CHờ cho page đc load xong trong vòng bao lâu 
+	   driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.MINUTES);
+	  // CHờ cho 1 đoạn script được thực thi xong trong vòng bao lâu 
+	   // JavascriptExecutor
+	   driver.manage().timeouts().setScriptTimeout(15, TimeUnit.SECONDS);
+	   
+	  // Windows
+	   driver.manage().window().fullscreen(); // = với việc nhấn F11
+	   
+	   driver.manage().window().maximize(); // bằng với việc nhấn icon Maximaize
+	   
+	   // Vị trí trình duyệt khi mở ra so với độ phân giải màn hình, tính từ điểm 0,0 (góc trên bên phải)
+	   Point point= driver.manage().window().getPosition();
+	   point.getX();
+	   point.getY();
+	   // Cài đặt vị trí khi mở trình duyệt, test GUI
+	   driver.manage().window().setPosition(new Point(1920, 1080));
+	   // Size: là kích thước của trình duyệt (chiều rộng, cao) khi mở ra, dùng để test responsive
+	   Dimension dimension = driver.manage().window().getSize();
+	   dimension.getWidth();
+	   dimension.getHeight();
+	   driver.manage().window().setSize(new Dimension(1900,1200));
+	   // Navigation --> chuyển hướng, tương đương action trên 3 button ở browser
+	   driver.navigate().back();
+	   driver.navigate().forward();
+	   driver.navigate().refresh();
+	   // Chuyển đến trang được chỉ định
+	   driver.navigate().to("https://facebook.com");
+	   
+	   // Swicth to: window/tab, frame/iframe, alert
+	   
+	   driver.switchTo().alert();
+	   driver.switchTo().frame(1);
+	   driver.switchTo().window("");
 
 	   
-	   
-	   
+	
 
+	   
    }
 
    @Test
