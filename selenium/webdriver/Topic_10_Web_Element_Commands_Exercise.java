@@ -25,14 +25,42 @@ public class Topic_10_Web_Element_Commands_Exercise {
 	   }
 	 
       driver = new FirefoxDriver();
-      driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
       driver.manage().window().maximize();
-      driver.get("https://automationfc.github.io/basic-form/index.html"); 
+     
    }
 
    @Test
    public void TC_01_Displayed() {
-	    
+	   driver.get("https://automationfc.github.io/basic-form/index.html"); 
+	   
+	  if( driver.findElement(By.xpath("//div[@class='container']//input[@id='mail']")).isDisplayed()) {
+		  driver.findElement(By.xpath("//div[@class='container']//input[@id='mail']")).sendKeys("Automation Testing");
+		  sleepInSecond(2);
+		  System.out.println("Email is displayed");
+	  }else {
+		  System.out.println("Email is not displayed");
+	  }
+	   
+	  if( driver.findElement(By.xpath("//div[@class='container']//label[@for='under_18']")).isDisplayed()){
+		 
+		   System.out.println("Age under 18 is displayed");
+	  }else {
+		  System.out.println("Age under 18 is not displayed");
+	  }
+	  if(driver.findElement(By.xpath("//div[@class='container']//textarea[@id='edu']")).isDisplayed()) {
+		 driver.findElement(By.xpath("//div[@class='container']//textarea[@id='edu']")).sendKeys("Automation Testing");
+		 sleepInSecond(2);
+		 System.out.println("Education is displayed");
+	  }else {
+		  System.out.println("Education is not displayed");
+	  }
+	  if(driver.findElement(By.xpath("//h5[text()='Name: User5']")).isDisplayed()) {
+		  System.out.println("Name User5 is displayed");
+	  }else {
+		  System.out.println("Name User5 is not displayed");
+	  }
+
    }
 
    @Test
