@@ -43,7 +43,7 @@ public class Topic_10_Web_Element_Commands_Exercise {
 	  }
 	   
 	  if( driver.findElement(By.xpath("//div[@class='container']//label[@for='under_18']")).isDisplayed()){
-		 
+		  driver.findElement(By.xpath("//div[@class='container']//label[@for='under_18']")).click();
 		   System.out.println("Age under 18 is displayed");
 	  }else {
 		  System.out.println("Age under 18 is not displayed");
@@ -65,6 +65,25 @@ public class Topic_10_Web_Element_Commands_Exercise {
 
    @Test
    public void TC_02_Enabled() {
+	   driver.get("https://automationfc.github.io/basic-form/index.html"); 
+	   
+		  if( driver.findElement(By.xpath("//div[@class='container']//input[@id='mail']")).isEnabled()) {
+			  System.out.println("Email is enabled");
+		  }else {
+			  System.out.println("Email is disabled");
+		  }
+		   
+		  if( driver.findElement(By.xpath("//div[@class='container']//label[@for='under_18']")).isEnabled()){
+			   System.out.println("Age under 18 is enabled");
+		  }else {
+			  System.out.println("Age under 18 is disabled");
+		  }
+		  if(driver.findElement(By.xpath("//div[@class='container']//textarea[@id='edu']")).isEnabled()) {
+			 			 System.out.println("Education is enabled");
+		  }else {
+			  System.out.println("Education is disabled");
+		  }
+		  
    }
 
    @Test
@@ -90,7 +109,7 @@ public class Topic_10_Web_Element_Commands_Exercise {
    
    @AfterClass
    public void afterClass() {
-      driver.quit();
+//      driver.quit();
    }
 
 }
