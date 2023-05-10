@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -88,11 +89,32 @@ public class Topic_10_Web_Element_Commands_Exercise {
 
    @Test
    public void TC_03_Selected() {
-      
+	   driver.get("https://automationfc.github.io/basic-form/index.html");  
+	   driver.findElement(By.id("under_18")).click();
+	   driver.findElement(By.id("java")).click();
+	   //dùng để kiểm tra 1 element được chọn thành công
+	   Assert.assertTrue(driver.findElement(By.id("under_18")).isSelected());
+	   Assert.assertTrue(driver.findElement(By.id("java")).isSelected());
+	   sleepInSecond(2);
+	   driver.findElement(By.id("java")).click();
+	   Assert.assertFalse(driver.findElement(By.id("java")).isSelected());
+
+	   //dùng để kiểm tra 1 element được chọn ko thành công
+	   //Assert.assertFalse(driver.findElement(By.id("under_18")).isSelected());
+	   // isSelected(): nếu 1 element được chọn thành công nó sẽ trả về True, còn chưa chọn thì sẽ trả về False	    
    }
    @Test
    public void TC_04_Mailchimp() {
-      
+	   driver.get("https://login.mailchimp.com/signup/");
+	   driver.findElement(By.id("email")).sendKeys("Nhat@gmail.com");
+	   driver.findElement(By.id("new_password")).sendKeys("123456aA@");
+	   sleepInSecond(2);
+	   
+	   
+	   
+	   
+	   
+	   
    }
    
    private void sleepInSecond(long timeout) {
@@ -109,7 +131,7 @@ public class Topic_10_Web_Element_Commands_Exercise {
    
    @AfterClass
    public void afterClass() {
-//      driver.quit();
+     driver.quit();
    }
 
 }
