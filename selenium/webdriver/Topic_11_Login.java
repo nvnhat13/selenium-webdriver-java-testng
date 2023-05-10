@@ -37,19 +37,50 @@ public class Topic_11_Login {
 	    sleepInSecond(2);
 	    driver.findElement(By.id("send2")).click();
 	    sleepInSecond(2);
-	    driver.findElement(By.id("advice-required-entry-email")).isDisplayed();
+	    Assert.assertEquals(driver.findElement(By.id("advice-required-entry-email")).getText(),"This is a required field.");
+	    Assert.assertEquals(driver.findElement(By.id("advice-required-entry-pass")).getText(),"This is a required field.");
 	  
-	    driver.findElement(By.id("advice-required-entry-pass")).isDisplayed();
-	    Assert.assertEquals(driver.findElement(By.id("advice-required-entry-pass")).isDisplayed(), true);
    }
 
    @Test
-   public void TC_02_() {
+   public void TC_02_Invalid_Email() {
+	   driver.get("http://live.techpanda.org/");
+	    driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
+	    sleepInSecond(2);
+	    driver.findElement(By.id("email")).sendKeys("123@123");
+	    driver.findElement(By.name("login[password]")).sendKeys("123456");
+	    sleepInSecond(2);
+	    driver.findElement(By.id("send2")).click();
+	    sleepInSecond(2);
+	    Assert.assertEquals(driver.findElement(By.cssSelector("div.validation-advice")).getText(),"Please enter a valid email address. For example johndoe@domain.com.");
+	  
    }
 
    @Test
-   public void TC_03_() {
-      
+   public void TC_03_Password_5Characters() {
+	   driver.get("http://live.techpanda.org/");
+	    driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
+	    sleepInSecond(2);
+	    driver.findElement(By.id("email")).sendKeys("123@gmail.com");
+	    driver.findElement(By.name("login[password]")).sendKeys("12345");
+	    sleepInSecond(2);
+	    driver.findElement(By.id("send2")).click();
+	    sleepInSecond(2);
+	    Assert.assertEquals(driver.findElement(By.cssSelector("div.validation-advice")).getText(),"Please enter 6 or more characters without leading or trailing spaces.");
+	      
+   }
+   @Test
+   public void TC_04_Incorrect_Email_Password() {
+	   driver.get("http://live.techpanda.org/");
+	    driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
+	    sleepInSecond(2);
+	    driver.findElement(By.id("email")).sendKeys("1235@gmail.com");
+	    driver.findElement(By.name("login[password]")).sendKeys("123456");
+	    sleepInSecond(2);
+	    driver.findElement(By.id("send2")).click();
+	    sleepInSecond(2);
+	    Assert.assertEquals(driver.findElement(By.cssSelector("li.error-msg")).getText(),"Invalid login or password.");
+	      
    }
    private void sleepInSecond(long timeout) {
 	   try {

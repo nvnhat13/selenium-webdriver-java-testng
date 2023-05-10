@@ -30,7 +30,11 @@ public class Topic_10_Web_Element_Commands_Exercise {
       driver.manage().window().maximize();
      
    }
-   
+   // Có 3 cách để chỉ định TC ko đc chạy
+   // 1. Comment dòng @Test như ở dưới. hoặc xoá @Test đi --> ưu tiên dùng
+   // 2. Thêm hàm @Test(enabled, false)
+   // 3. Quản lý trong file XML, chạy dưới dạng method
+   // Trên IntelliJ sẽ tiện hơn, chỉ cần chạy case mình cần
 //@Test
    public void TC_01_Displayed() {
 	   driver.get("https://automationfc.github.io/basic-form/index.html"); 
