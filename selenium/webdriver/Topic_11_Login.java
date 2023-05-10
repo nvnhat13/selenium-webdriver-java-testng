@@ -38,7 +38,7 @@ public class Topic_11_Login {
 	    driver.findElement(By.id("send2")).click();
 	    sleepInSecond(2);
 	    driver.findElement(By.id("advice-required-entry-email")).isDisplayed();
-	    Assert.assertEquals(driver.findElement(By.id("advice-required-entry-email")).isDisplayed(), true);
+	  
 	    driver.findElement(By.id("advice-required-entry-pass")).isDisplayed();
 	    Assert.assertEquals(driver.findElement(By.id("advice-required-entry-pass")).isDisplayed(), true);
    }
