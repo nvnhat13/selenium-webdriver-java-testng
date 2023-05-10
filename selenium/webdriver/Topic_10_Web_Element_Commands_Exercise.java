@@ -108,12 +108,15 @@ public class Topic_10_Web_Element_Commands_Exercise {
 	   driver.get("https://login.mailchimp.com/signup/");
 	   driver.findElement(By.id("email")).sendKeys("Nhat@gmail.com");
 	   driver.findElement(By.id("new_password")).sendKeys("123456aA@");
+	   driver.findElement(By.name("marketing_newsletter")).click();
+	   sleepInSecond(2);
+	   driver.findElement(By.name("marketing_newsletter")).isSelected();
+	   Assert.assertTrue(driver.findElement(By.name("marketing_newsletter")).isSelected());
+	   driver.findElement(By.id("create-account-enabled")).click();
 	   sleepInSecond(2);
 	   
 	   
-	   
-	   
-	   
+  
 	   
    }
    
