@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,7 +16,7 @@ import org.testng.annotations.Test;
 // Format code: Ctrl+Shift+F
 // Collapse code: Ctrl+Shift+Down
 // Expand code: Ctrl+Shift+Up
-public class Topic_00_Template {
+public class Topic_12_Textbox_TextArea {
 
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
@@ -33,15 +34,30 @@ public class Topic_00_Template {
 		}
 
 		driver = new FirefoxDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get("http://live.techpanda.org/index.php/customer/account/login/");
+		
 	}
 
 	@Test
-	public void TC_01_() {
-		String benefitText = driver.findElement(By.cssSelector("ul.benefits")).getText();
-		System.out.println(benefitText);
+	public void TC_01_TechPanda_Register() {
+		
+		driver.get("http://live.techpanda.org/");
+		sleepInSecond(2);
+	    driver.findElement(By.xpath("//div[@class='footer-container']//a[@title='My Account']")).click();
+	    sleepInSecond(2);
+	    driver.findElement(By.xpath("//div[@class='buttons-set']//a[@title='Create an Account']")).click();
+	    sleepInSecond(2);
+	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='firstname']")).sendKeys("Nguyen");
+	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='lastname']")).sendKeys("Nhat");
+	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='email_address']")).sendKeys("Nhat@gmail.com");
+	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='password']")).sendKeys("123aB@");
+	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='confirmation']")).sendKeys("123aB@");
+	    sleepInSecond(2);
+	    driver.findElement(By.xpath("//div[@class='buttons-set']//button[@title='Register']")).click();
+	    sleepInSecond(3);
+	    Assert.assertTrue(driver.findElement(By.cssSelector("li[class='success-msg']")).isDisplayed());
+
 	}
 
 	@Test
@@ -60,7 +76,7 @@ public class Topic_00_Template {
 				e.printStackTrace();
 			}
 	   };
-	@AfterClass
+//	@AfterClass
 	public void afterClass() {
 		driver.quit();
 	}
