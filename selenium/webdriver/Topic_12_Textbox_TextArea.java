@@ -48,15 +48,17 @@ public class Topic_12_Textbox_TextArea {
 	    sleepInSecond(2);
 	    driver.findElement(By.xpath("//div[@class='buttons-set']//a[@title='Create an Account']")).click();
 	    sleepInSecond(2);
-	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='firstname']")).sendKeys("Nguyen");
-	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='lastname']")).sendKeys("Nhat");
-	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='email_address']")).sendKeys("Nhat@gmail.com");
+	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='firstname']")).sendKeys("nguyen1234");
+	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='lastname']")).sendKeys("nhat123");
+	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='email_address']")).sendKeys("Nhat1234567@gmail.com");
 	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='password']")).sendKeys("123aB@");
 	    driver.findElement(By.xpath("//div[@class='input-box']//input[@id='confirmation']")).sendKeys("123aB@");
 	    sleepInSecond(2);
 	    driver.findElement(By.xpath("//div[@class='buttons-set']//button[@title='Register']")).click();
 	    sleepInSecond(3);
-	    Assert.assertTrue(driver.findElement(By.cssSelector("li[class='success-msg']")).isDisplayed());
+	    Assert.assertTrue(driver.findElement(By.cssSelector("li[class='success-msg']")).isDisplayed());	  
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='box-content']//p[@text()='nguyen1234nhat123']")).isDisplayed());
+	    Assert.assertTrue(driver.findElement(By.xpath("//div[@class='box-content']//br[@text()='Nhat1234567@gmail.com']")).isDisplayed());
 
 	}
 
@@ -76,7 +78,7 @@ public class Topic_12_Textbox_TextArea {
 				e.printStackTrace();
 			}
 	   };
-//	@AfterClass
+	@AfterClass
 	public void afterClass() {
 		driver.quit();
 	}
