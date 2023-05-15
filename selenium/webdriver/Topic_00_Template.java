@@ -11,12 +11,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-// Các phím tắt trong Eclipse:
-// Duplicate code: bôi tất cả dòng --> Ctrl+Alt+Up
-// Xoá dòng code: Ctrl+D
-// Format code: Ctrl+Shift+F
-// Collapse code: Ctrl+Shift+Down
-// Expand code: Ctrl+Shift+Up
+
 public class Topic_00_Template {
 
 	WebDriver driver;
@@ -52,8 +47,6 @@ public class Topic_00_Template {
 
 	@Test
 	public void TC_01_() {
-		String benefitText = driver.findElement(By.cssSelector("ul.benefits")).getText();
-		System.out.println(benefitText);
 	}
 
 	@Test
@@ -76,10 +69,6 @@ public class Topic_00_Template {
 	public void afterClass() {
 		driver.quit();
 	}
-	// Ý nghĩa của hàm Assert.assertTrue và Assert.assertFalse
-//   int a = 5;
-//   int b = 7;
-//   Assert.assertTrue(a < b); // Test sẽ thành công vì 5 < 7
-//   Assert.assertFalse(a > b); // Test sẽ thành công vì 5 không lớn hơn 7
+
 
 }

@@ -59,37 +59,79 @@ public class Topic_13_Textbox_TextArea_Exercise {
 	}
 
 	@Test
-	public void TC_01_OrangeHRM() {
-	// Orange HRM
+	public void TC_01_OrangeHRM() {		
 		driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+	// Login với quyền của HR (Orange HRM)		
 		driver.findElement(By.name("username")).sendKeys("Admin");
 		driver.findElement(By.name("password")).sendKeys("admin123");
 		driver.findElement(By.cssSelector("button.orangehrm-login-button")).click();
-		sleepInSecond(2);
+		sleepInSecond(3);
 		driver.findElement(By.xpath("//span[text()='PIM']")).click();
-		sleepInSecond(2);
+		sleepInSecond(3);
 		driver.findElement(By.xpath("//a[text()='Add Employee']")).click();
-		sleepInSecond(2);
+		sleepInSecond(3);
 		driver.findElement(By.name("firstName")).sendKeys(firstName);
 		driver.findElement(By.name("lastName")).sendKeys(lastName);
+
+
 		employeeID = driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value");
 		driver.findElement(By.xpath("//p[text()='Create Login Details']/following-sibling::div//span")).click();
-		sleepInSecond(2);
-		driver.findElement(By.xpath("//label[text()='Username']/parent::div/following-sibling::div/input")).sendKeys("userName");
-		driver.findElement(By.xpath("//label[text()='password']/parent::div/following-sibling::div/input")).sendKeys("password");
-		driver.findElement(By.xpath("//label[text()='Confirm password']/parent::div/following-sibling::div/input")).sendKeys("password");
+		sleepInSecond(3);
+		driver.findElement(By.xpath("//label[text()='Username']/parent::div/following-sibling::div/input")).sendKeys(userName);
+		driver.findElement(By.xpath("//label[text()='Password']/parent::div/following-sibling::div/input")).sendKeys(password);
+		driver.findElement(By.xpath("//label[text()='Confirm Password']/parent::div/following-sibling::div/input")).sendKeys(password);
 		driver.findElement(By.xpath("//button[contains(string(),'Save')]")).click();
-		sleepInSecond(8);
+		sleepInSecond(10);
 		Assert.assertEquals(driver.findElement(By.name("firstName")).getAttribute("value"), firstName);
 		Assert.assertEquals(driver.findElement(By.name("lastName")).getAttribute("value"), lastName);
 		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value"), employeeID);
 
 		driver.findElement(By.xpath("//a[text()='Immigration']")).click();
-		sleepInSecond(2);
+		sleepInSecond(3);
 		driver.findElement(By.xpath("//h6[text()='Assigned Immigration Records']/following-sibling::button")).click();
+		sleepInSecond(3);
+		driver.findElement(By.xpath("//label[text()='Number']/parent::div/following-sibling::div/input")).sendKeys(passportID);
+		driver.findElement(By.xpath("//label[text()='Issued Date']/parent::div/following-sibling::div//input")).sendKeys(issueDate);
+		driver.findElement(By.xpath("//label[text()='Expiry Date']/parent::div/following-sibling::div//input")).sendKeys(expireDate);
+		driver.findElement(By.xpath("//label[text()='Comments']/parent::div/following-sibling::div/textarea")).sendKeys(comment);	
+		driver.findElement(By.xpath("//button[contains(string(),'Save')]")).click();
+		sleepInSecond(5);
+		Assert.assertTrue(driver.findElement(By.xpath("//div[text()='"+passportID+"']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//div[text()='"+issueDate+"']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//div[text()='"+expireDate+"']")).isDisplayed());
+		driver.findElement(By.cssSelector("i.bi-pencil-fill")).click();
+		sleepInSecond(2);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Number']/parent::div/following-sibling::div/input")).getAttribute("value"), passportID);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Issued Date']/parent::div/following-sibling::div//input")).getAttribute("value"), issueDate);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Expiry Date']/parent::div/following-sibling::div//input")).getAttribute("value"), expireDate);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Comments']/parent::div/following-sibling::div/textarea")).getAttribute("value"), comment);
+
+		driver.findElement(By.cssSelector("p.oxd-userdropdown-name")).click();
+		driver.findElement(By.xpath("//a[text()='Logout']")).click();
 		sleepInSecond(2);
 		
-		
+		//Login với quyền employee
+		driver.findElement(By.name("username")).sendKeys(userName);
+		driver.findElement(By.name("password")).sendKeys(password);
+		driver.findElement(By.cssSelector("button.orangehrm-login-button")).click();
+		sleepInSecond(2);
+		driver.findElement(By.xpath("//span[text()='My Info']")).click();
+		sleepInSecond(4);
+		Assert.assertEquals(driver.findElement(By.name("firstName")).getAttribute("value"),firstName);
+		Assert.assertEquals(driver.findElement(By.name("lastName")).getAttribute("value"),lastName);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Employee Id']/parent::div/following-sibling::div/input")).getAttribute("value"), employeeID);
+
+		driver.findElement(By.xpath("//a[text()='Immigration']")).click();
+		sleepInSecond(3);
+		Assert.assertTrue(driver.findElement(By.xpath("//div[text()='"+passportID+"']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//div[text()='"+issueDate+"']")).isDisplayed());
+		Assert.assertTrue(driver.findElement(By.xpath("//div[text()='"+expireDate+"']")).isDisplayed());
+		driver.findElement(By.cssSelector("i.bi-pencil-fill")).click();
+		sleepInSecond(3);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Number']/parent::div/following-sibling::div/input")).getAttribute("value"), passportID);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Issued Date']/parent::div/following-sibling::div//input")).getAttribute("value"), issueDate);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Expiry Date']/parent::div/following-sibling::div//input")).getAttribute("value"), expireDate);
+		Assert.assertEquals(driver.findElement(By.xpath("//label[text()='Comments']/parent::div/following-sibling::div/textarea")).getAttribute("value"), comment);
 		
 	}
 
