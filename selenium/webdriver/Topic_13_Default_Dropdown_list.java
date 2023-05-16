@@ -16,7 +16,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-
 public class Topic_13_Default_Dropdown_list {
 
 	WebDriver driver;
@@ -27,9 +26,10 @@ public class Topic_13_Default_Dropdown_list {
 	Select select; // --> khai báo
 	Actions action;
 	String city;
+
 	@BeforeClass
 	public void beforeClass() {
-		
+
 		// Khi khởi tạo cần biến driver thì mới khởi tạo trong beforeClass.
 		// Khởi tạo sau biến driver = new Firefox.Driver();
 //Windows
@@ -41,18 +41,19 @@ public class Topic_13_Default_Dropdown_list {
 			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver.exe");
 		}
 		// Khởi tạo driver
-		driver = new FirefoxDriver();		
+		driver = new FirefoxDriver();
 		System.out.println(driver.toString());
 		// Khởi tạo các biến driver khác
-	
+
 		action = new Actions(driver);
-		
-		// Hàm explicitlyWait dùng cho việc kiểm tra trạng thái của element: hiển thị/ko hiển thị/ presence/ staleness
-		explicitlyWait = new WebDriverWait(driver,10);
+
+		// Hàm explicitlyWait dùng cho việc kiểm tra trạng thái của element: hiển thị/ko
+		// hiển thị/ presence/ staleness
+		explicitlyWait = new WebDriverWait(driver, 10);
 		// Hàm implicitlyWait dùng cho việc tìm element (findElement/ findElements)
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		
+
 	}
 
 	@Test
@@ -89,25 +90,28 @@ public class Topic_13_Default_Dropdown_list {
 		select = new Select(driver.findElement(By.cssSelector("select#day")));
 		select.selectByVisibleText("13");
 		Assert.assertEquals(select.getFirstSelectedOption().getText(), "13");
-		sleepInSecond(2);	
-		
+		List<WebElement> days = select.getOptions();
+		System.out.println(days = select.getOptions());
+		Assert.assertEquals(days.size(), 31);
+
 		// Chọn tháng
 		select = new Select(driver.findElement(By.cssSelector("select#month")));
 		select.selectByVisibleText("May");
 		Assert.assertEquals(select.getFirstSelectedOption().getText(), "May");
+		List<WebElement> months = select.getOptions();
+		Assert.assertEquals(months.size(), 12);
 		sleepInSecond(2);
-			
+		for (WebElement month : months) {
+			System.out.println(month.getText());
+		}
 		// Chọn năm
 		select = new Select(driver.findElement(By.cssSelector("select#year")));
 		select.selectByVisibleText("1988");
 		Assert.assertEquals(select.getFirstSelectedOption().getText(), "1988");
+
 		sleepInSecond(2);
-	
-		
-		
 
 	}
-	
 
 	@Test
 	public void TC_02_() {
@@ -117,18 +121,19 @@ public class Topic_13_Default_Dropdown_list {
 	public void TC_03_() {
 
 	}
+
 	private void sleepInSecond(long timeout) {
-		   try {
-				Thread.sleep(timeout*1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	   };
+		try {
+			Thread.sleep(timeout * 1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	};
+
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
 	}
-
 
 }
