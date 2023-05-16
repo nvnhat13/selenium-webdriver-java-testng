@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+
+
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,6 +29,13 @@ public class Topic_13_Default_Dropdown_list {
 	Select select; // --> khai báo
 	Actions action;
 	String city;
+	String emailAddress = "ANhat" + random.nextInt(99999) + "@gmail.com";
+	String firstName = "Nguyen";
+	String lastName = "Nhat";
+	String companyName = "Lifesup";
+	JavascriptExecutor jsExecutor;
+	
+
 
 	@BeforeClass
 	public void beforeClass() {
@@ -44,7 +54,7 @@ public class Topic_13_Default_Dropdown_list {
 		driver = new FirefoxDriver();
 		System.out.println(driver.toString());
 		// Khởi tạo các biến driver khác
-
+		jsExecutor = (JavascriptExecutor) driver;
 		action = new Actions(driver);
 
 		// Hàm explicitlyWait dùng cho việc kiểm tra trạng thái của element: hiển thị/ko
@@ -56,7 +66,7 @@ public class Topic_13_Default_Dropdown_list {
 
 	}
 
-	@Test
+	//@Test
 	public void TC_01_Facebook() {
 		driver.get("https://www.facebook.com/reg/");
 //		// Các hàm select hay dùng
@@ -115,6 +125,31 @@ public class Topic_13_Default_Dropdown_list {
 
 	@Test
 	public void TC_02_() {
+		driver.get("https://applitools.com/automating-tests-chrome-devtools-recorder-webinar/");
+		sleepInSecond(2);
+		driver.findElement(By.cssSelector("button#onetrust-accept-btn-handler")).click();
+		sleepInSecond(2);
+		// Input field
+		driver.findElement(By.cssSelector("input#Email")).sendKeys(emailAddress);
+		driver.findElement(By.cssSelector("input#FirstName")).sendKeys(firstName);
+		driver.findElement(By.cssSelector("input#LastName")).sendKeys(lastName);
+		driver.findElement(By.cssSelector("input#Company")).sendKeys(companyName);
+		sleepInSecond(2);
+		//Select HTML dropdown
+		
+		
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);",driver.findElement(By.cssSelector("select#Person_Role__c")));
+		sleepInSecond(2);
+		
+		select = new Select(driver.findElement(By.cssSelector("select#Person_Role__c")));
+		select.selectByVisibleText("CEO / CFO / COO");
+	
+		select = new Select(driver.findElement(By.cssSelector("select#Test_Framework__c")));
+		select.selectByVisibleText("Selenium");
+	
+		select = new Select(driver.findElement(By.cssSelector("select#Self_Report_Country__c")));
+		select.selectByVisibleText("Canada");
+		
 	}
 
 	@Test
