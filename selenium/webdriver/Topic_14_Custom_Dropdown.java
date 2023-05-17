@@ -42,7 +42,7 @@ public class Topic_14_Custom_Dropdown {
 
 	}
 
-	@Test
+//	@Test
 	public void TC_01_JQuery() {
 		// Dùng vòng lặp FOR, hàm IF, explicitlyWait, break
 		
@@ -63,7 +63,33 @@ public class Topic_14_Custom_Dropdown {
 		
 		
 	}
+	//@Test
+	public void TC_02_ReactJS() {
 
+		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-selection");
+		selectItemInCustomDropdown("//i[@class='dropdown icon']", "//div[@class='visible menu transition']", "Christian");
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='item']/span[text()='Christian']")).getText(), "Christian");
+		}
+
+	//@Test
+	public void TC_03_VueJS() {
+
+		driver.get("https://mikerodham.github.io/vue-dropdowns/");
+		selectItemInCustomDropdown("//li[@class='dropdown-toggle']", "//ul[@class='dropdown-menu']/li/a", "First Option");
+		Assert.assertEquals(driver.findElement(By.xpath("//li[@class='dropdown-toggle']")).getText(), "First Option");
+	
+	} 
+	
+	@Test
+	public void TC_04_Editable() {
+
+		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-search-selection/");
+		sleepInSecond(3);
+		selectItemInEditableDropdown("//input[@class='search']", "//div[@class='visible menu transition']", "Aland");
+		Assert.assertEquals(driver.findElement(By.xpath("//div[@class='visible menu transition']")).getText(), "Aland Islands");
+	
+	}
+	
 	private void sleepInSecond(long timeout) {
 		try {
 			Thread.sleep(timeout * 1000);
@@ -100,7 +126,32 @@ public class Topic_14_Custom_Dropdown {
 	    }
 	}
 
+	public void selectItemInEditableDropdown(String xpathParent, String xpathChild, String expectedText) {
+	    // Click vào 1 thẻ để xổ hết các item
+	    driver.findElement(By.xpath(xpathParent)).sendKeys(expectedText);
+	    sleepInSecond(1);
 
+	    // Chờ tất cả item được hiển thị
+	    explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(xpathChild)));
+	    // Lấy hết tất cả các item trong dropdown lưu vào list
+	    List<WebElement> allItems = driver.findElements(By.xpath(xpathChild));
+	    // Duyệt qua từng item
+	    for (WebElement tempElement : allItems) {
+	        // Get text của từng item
+	        String itemText = tempElement.getText();
+	        System.out.println(itemText);
+	        // Kiểm tra text đúng với cái mình cần chọn
+	        if (itemText.equals(expectedText)) {
+	            // Scroll tới element cần chọn
+	            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", tempElement);	          
+	            sleepInSecond(2);
+	            tempElement.click();
+	            sleepInSecond(2);
+
+	            break;
+	        }
+	    }
+	}
 	
 	@AfterClass
 	public void afterClass() {
