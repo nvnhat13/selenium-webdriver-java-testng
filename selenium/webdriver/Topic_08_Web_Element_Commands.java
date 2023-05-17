@@ -66,7 +66,7 @@ public class Topic_08_Web_Element_Commands {
 	   List<WebElement> textboxes = driver.findElements(By.xpath("//input[@type='text']"));
 
 	   
-	   //Tìm 1 element
+	   //Tìm 1 element 
 	   // Xoá dữ liệu trong 1 textbox, textarea... (dạng editable)
 	   driver.findElement(By.id("")).clear();
 	   

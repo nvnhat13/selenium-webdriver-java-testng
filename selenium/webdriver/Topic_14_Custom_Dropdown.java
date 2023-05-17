@@ -50,18 +50,17 @@ public class Topic_14_Custom_Dropdown {
 		
 		selectItemInCustomDropdown("//span[@id='number-button']", "//ul[@id='number-menu']/li/div", "2");		 
 		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']")).getText(), "2");
-		   	
-		selectItemInCustomDropdown("//span[@id='number-button']", "//ul[@id='number-menu']/li/div", "8");		
-		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']")).getText(), "8");
+		   			 		
 		
-		selectItemInCustomDropdown("//span[@id='number-button']", "//ul[@id='number-menu']/li/div", "14");
-		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']")).getText(), "14");
-		  
-		selectItemInCustomDropdown("//span[@id='number-button']","//ul[@id='number-menu']/li/div", "18");		
-		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']")).getText(), "18");		  		
+		selectItemInCustomDropdown("//span[@id='speed-button']","//ul[@id='speed-menu']/li/div", "Slower");		
+		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='speed-button']/span[@class='ui-selectmenu-text']")).getText(), "Slower");	
 		
+		selectItemInCustomDropdown("//span[@id='files-button']","//ul[@id='files-menu']/li/div", "jQuery.js");		
+		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='files-button']/span[@class='ui-selectmenu-text']")).getText(), "jQuery.js");	
 		
-
+		selectItemInCustomDropdown("//span[@id='salutation-button']","//ul[@id='salutation-menu']/li/div", "Dr.");		
+		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='salutation-button']/span[@class='ui-selectmenu-text']")).getText(), "Dr.");	
+		
 		
 	}
 
@@ -92,9 +91,9 @@ public class Topic_14_Custom_Dropdown {
 	        if (itemText.equals(expectedText)) {
 	            // Scroll tới element cần chọn
 	            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", tempElement);	          
-	            sleepInSecond(1);
+	            sleepInSecond(2);
 	            tempElement.click();
-	            sleepInSecond(1);
+	            sleepInSecond(2);
 
 	            break;
 	        }
