@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,21 +29,21 @@ public class Topic_14_Custom_Dropdown {
 	public void beforeClass() {
 //Windows
 		if (osName.contains("Windows")) {
-			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
 		}
 //MacOS
 		else {
-			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver.exe");
+			System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver.exe");
 		}
 
-		driver = new FirefoxDriver();
+		driver = new ChromeDriver();
 		explicitWait = new WebDriverWait(driver, 30);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
 	}
 
-//	@Test
+	@Test
 	public void TC_01_JQuery() {
 		// Dùng vòng lặp FOR, hàm IF, explicitlyWait, break
 		
@@ -50,7 +51,15 @@ public class Topic_14_Custom_Dropdown {
 		
 		selectItemInCustomDropdown("//span[@id='number-button']", "//ul[@id='number-menu']/li/div", "2");		 
 		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']")).getText(), "2");
-		   			 		
+		
+		selectItemInCustomDropdown("//span[@id='number-button']", "//ul[@id='number-menu']/li/div", "8");		 
+		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']")).getText(), "8");
+		
+		selectItemInCustomDropdown("//span[@id='number-button']", "//ul[@id='number-menu']/li/div", "12");		 
+		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']")).getText(), "12");
+		
+		selectItemInCustomDropdown("//span[@id='number-button']", "//ul[@id='number-menu']/li/div", "18");		 
+		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text']")).getText(), "18");
 		
 		selectItemInCustomDropdown("//span[@id='speed-button']","//ul[@id='speed-menu']/li/div", "Slower");		
 		Assert.assertEquals(driver.findElement(By.xpath("//span[@id='speed-button']/span[@class='ui-selectmenu-text']")).getText(), "Slower");	
@@ -80,7 +89,7 @@ public class Topic_14_Custom_Dropdown {
 	
 	} 
 	
-	@Test
+	//@Test
 	public void TC_04_Editable() {
 
 		driver.get("https://react.semantic-ui.com/maximize/dropdown-example-search-selection/");
@@ -117,9 +126,9 @@ public class Topic_14_Custom_Dropdown {
 	        if (itemText.equals(expectedText)) {
 	            // Scroll tới element cần chọn
 	            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", tempElement);	          
-	            sleepInSecond(2);
+	            sleepInSecond(3);
 	            tempElement.click();
-	            sleepInSecond(2);
+	            sleepInSecond(3);
 
 	            break;
 	        }
