@@ -109,8 +109,7 @@ public class Topic_15_Button_Checkbox_Radio {
 	public void TC_04_SelectAll_Checkbox() {
 		driver.get("https://automationfc.github.io/multiple-fields/");
 		// Dùng 1 list element để chứa hết checkbox
-		List<WebElement> allCheckBoxes = driver
-				.findElements(By.cssSelector("div.form-single-column input.form-checkbox"));
+		List<WebElement> allCheckBoxes = driver.findElements(By.cssSelector("div.form-single-column input.form-checkbox"));
 		for (WebElement checkbox : allCheckBoxes) {
 			checkbox.click();
 //			sleepInSecond(1);
@@ -194,7 +193,21 @@ public class Topic_15_Button_Checkbox_Radio {
 		driver.findElement(checkboxQuangNam).click();
 		Assert.assertEquals(driver.findElement(checkboxQuangNam).getAttribute("aria-checked"), "true");
 		sleepInSecond(2);
-	}
+		
+		List<WebElement> allCheckBoxes = driver.findElements(By.cssSelector("div[role='checkbox']"));
+		for (WebElement checkbox: allCheckBoxes) {
+			if(checkbox.getAttribute("aria-checked").equals("false")) {
+			checkbox.click();
+			sleepInSecond(1);
+			}
+		}
+		for (WebElement checkbox: allCheckBoxes) {
+			Assert.assertEquals(checkbox.getAttribute("aria-checked"),"true");
+			
+			}
+		}
+		
+	
 
 	private void sleepInSecond(long timeout) {
 		try {
