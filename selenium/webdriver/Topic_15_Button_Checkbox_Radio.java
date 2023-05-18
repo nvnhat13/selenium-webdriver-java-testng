@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -43,7 +44,7 @@ public class Topic_15_Button_Checkbox_Radio {
 		
 	}
 
-	@Test
+	//@Test
 	public void TC_01_Button() {
 		driver.get("https://www.fahasa.com/customer/account/create");
 		driver.findElement(By.cssSelector("li.popup-login-tab-login")).click();
@@ -64,13 +65,40 @@ public class Topic_15_Button_Checkbox_Radio {
 		Assert.assertEquals(driver.findElement(loginButton).getCssValue("background-color"),"rgba(0, 0, 0, 0)");
 		
 	}
-
+	// Thẻ input của checkbox/radio hiển thị và thao tác đc thì gọi là default
+	// Thẻ input của checkbox/radio ko hiển thị hoặc ko thao tác được gọi là custom
 	@Test
-	public void TC_02_() {
+	public void TC_02_Default_Checkbox() {
+		//Checkbox
+		//Chọn
+		driver.get("https://demos.telerik.com/kendo-ui/checkbox/index");
+		By dualZoneCheckbox = By.cssSelector("li input#eq5");
+		
+		if (!driver.findElement(dualZoneCheckbox).isSelected()) {
+			driver.findElement(dualZoneCheckbox).click();
+	            sleepInSecond(3);         
+	        }		
+		Assert.assertTrue(driver.findElement(dualZoneCheckbox).isSelected());
+		
+		// Bỏ chọn
+		if ((driver.findElement(dualZoneCheckbox).isSelected())) {
+			driver.findElement(dualZoneCheckbox).click();
+	            sleepInSecond(2);         
+	        }	
+		Assert.assertFalse(driver.findElement(dualZoneCheckbox).isSelected());
+
 	}
 
 	@Test
-	public void TC_03_() {
+	public void TC_03_Default_Radio() {
+		//Radio
+		driver.get("http://demos.telerik.com/kendo-ui/styling/radios");
+		By petrol147Kw = By.cssSelector("li input#engine3");	
+		if (!driver.findElement(petrol147Kw).isSelected()) {
+			driver.findElement(petrol147Kw).click();
+	            sleepInSecond(3); 	            
+	        }	
+		Assert.assertTrue(driver.findElement(petrol147Kw).isSelected());
 
 	}
 	private void sleepInSecond(long timeout) {
