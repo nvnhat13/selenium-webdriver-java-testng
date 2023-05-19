@@ -1,5 +1,6 @@
 package webdriver;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -20,14 +21,15 @@ import org.testng.annotations.Test;
 public class Topic_16_Alert {
 
 	WebDriver driver;
-	
 	String projectPath = System.getProperty("user.dir");
+	String autoIT = projectPath + "\\AutoIT\\authen_firefox.exe";
 	String osName = System.getProperty("os.name");
 	Random random = new Random();
 	WebDriverWait explicitlyWait;
 	String emailAddress = "ANhat" + random.nextInt(99999) + "@gmail.com";
 	String password = "123456789";
 	JavascriptExecutor jsExecutor;
+	
 	
 	@BeforeClass
 	public void beforeClass() {
@@ -51,7 +53,7 @@ public class Topic_16_Alert {
 	}
 
 	// Alert không inspect được vì nó là của browser
-	// Có 4 loại alert: Accept Alert,  Confirm Alert,  Promt Alert, Authentication Alert
+	// Có 4 loại alert: Accept Alert,  Confirm Alert,  Promt Alert, Authentiadmincation Alert
 	// @Test
 	public void TC_01_Accept_Alert() {
 //			Alert alert = driver.switchTo().alert();
@@ -95,7 +97,7 @@ public class Topic_16_Alert {
 		
 	}
 		
-	@Test
+	//@Test
 	public void TC_04_Authen_Alert() {
 		// Ko dùng thư viện alert để xử lý được
 		// Selenium support: http://username:password@domain
@@ -103,13 +105,26 @@ public class Topic_16_Alert {
 		Assert.assertEquals(driver.findElement(By.cssSelector("div.example p")).getText(), "Congratulations! You must have the proper credentials.");
 		sleepInSecond(2);
 	}
-	@Test
+	//@Test
 	public void TC_05_Authen_Alert() {
 		driver.get("http://the-internet.herokuapp.com");
-		
-		
-	}
+		//C1: driver.findElement(By.xpath("//a[text()='Basic Auth']")).click();
+		String basicAuthLink = driver.findElement(By.xpath("//a[text()='Basic Auth']")).getAttribute("href");
+		System.out.println(basicAuthLink);
+		// http://the-internet.herokuapp.com/basic_auth
+		driver.get(getUrlByUserPass(basicAuthLink, "admin", "admin"));
+		Assert.assertEquals(driver.findElement(By.cssSelector("div.example p")).getText(), "Congratulations! You must have the proper credentials.");
 
+	}
+	@Test
+	public void TC_06_Authen_Alert_AutoIT()throws IOException {
+		Runtime.getRuntime().exec(new String[] {autoIT, "admin", "admin"});	
+		driver.get("http://the-internet.herokuapp.com/basic_auth");
+		sleepInSecond(5);
+		
+		Assert.assertEquals(driver.findElement(By.cssSelector("div.example p")).getText(), "Congratulations! You must have the proper credentials.");
+
+	}
 	private void sleepInSecond(long timeout) {
 		try {
 			Thread.sleep(timeout * 1000);
@@ -124,4 +139,11 @@ public class Topic_16_Alert {
 		driver.quit();
 	}
 
+	public String getUrlByUserPass( String url, String username, String password) {
+		String [] newUrl = url.split("//");
+		return url = newUrl[0] + "//"+username+":"+password+"@"+newUrl[1];
+		 
+	}
+	
+	
 }
