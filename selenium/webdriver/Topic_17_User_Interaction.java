@@ -54,66 +54,94 @@ public class Topic_17_User_Interaction {
 
 	//@Test
 	public void TC_01_tooltip() {
-		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug sau 3s
+		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug
+		// sau 3s
 		// Khi chạy thì ko được dùng chuột
 		driver.get("https://automationfc.github.io/jquery-tooltip/");
 		action.moveToElement(driver.findElement(By.cssSelector("input#age"))).perform();
 		sleepInSecond(2);
 		Assert.assertEquals(driver.findElement(By.cssSelector("div.ui-tooltip-content")).getText(),
 				"We ask for your age only for statistical purposes.");
+		
 	}
+
 	//@Test
 	public void TC_02_tooltip() {
-		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug sau 3s
+		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug
+		// sau 3s
 		// Khi chạy thì ko được dùng chuột
 		driver.get("http://www.healthkart.com/");
-	
+
 		action.moveToElement(driver.findElement(By.cssSelector("div.container-item.support"))).perform();
 		sleepInSecond(1);
 		action.click(driver.findElement(By.xpath("//div[@class='dropdown-container']//a[4]"))).perform();
 		sleepInSecond(1);
-		Assert.assertEquals(driver.findElement(By.xpath("//div[contains(@class,'hk-breadcrumb-cntnr')]//span[3]")).getText(),"Terms and Conditions");
+		Assert.assertEquals(
+				driver.findElement(By.xpath("//div[contains(@class,'hk-breadcrumb-cntnr')]//span[3]")).getText(),
+				"Terms and Conditions");
 
 	}
+
 	//@Test
 	public void TC_03_Click_And_hold() {
-		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug sau 3s
+		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug
+		// sau 3s
 		// Khi chạy thì ko được dùng chuột
 		driver.get("https://automationfc.github.io/jquery-selectable/");
 		// Cách 1: thủ công
-		action.clickAndHold(driver.findElement(By.xpath("//li[text()='1']")))  // click vào text 1
-		.moveToElement(driver.findElement(By.xpath("//li[text()='4']")))  // move đến text 4
-		.release() // nhả chuột ra																
-		.perform(); // thực thi các hành động trên
+		action.clickAndHold(driver.findElement(By.xpath("//li[text()='1']"))) // click vào text 1
+				.moveToElement(driver.findElement(By.xpath("//li[text()='4']"))) // move đến text 4
+				.release() // nhả chuột ra
+				.perform(); // thực thi các hành động trên
 		sleepInSecond(2);
 		// Verify text 1--> 4 đã được chọn
-		Assert.assertTrue(driver.findElement(By.xpath("//li[text()='1' and contains(@class,'ui-selected')]")).isDisplayed());
-		Assert.assertTrue(driver.findElement(By.xpath("//li[text()='2' and contains(@class,'ui-selected')]")).isDisplayed());
-		Assert.assertTrue(driver.findElement(By.xpath("//li[text()='3' and contains(@class,'ui-selected')]")).isDisplayed());
-		Assert.assertTrue(driver.findElement(By.xpath("//li[text()='4' and contains(@class,'ui-selected')]")).isDisplayed());
+		Assert.assertTrue(
+				driver.findElement(By.xpath("//li[text()='1' and contains(@class,'ui-selected')]")).isDisplayed());
+		Assert.assertTrue(
+				driver.findElement(By.xpath("//li[text()='2' and contains(@class,'ui-selected')]")).isDisplayed());
+		Assert.assertTrue(
+				driver.findElement(By.xpath("//li[text()='3' and contains(@class,'ui-selected')]")).isDisplayed());
+		Assert.assertTrue(
+				driver.findElement(By.xpath("//li[text()='4' and contains(@class,'ui-selected')]")).isDisplayed());
 		// Cách 2: Chọn cả list lưu rồi lôi số cần thao tác với số mình muốn
 		List<WebElement> allNumbers = driver.findElements(By.cssSelector("ol#selectable li"));
 		action.clickAndHold(allNumbers.get(0)).moveToElement(allNumbers.get(3)).release().perform();
 		sleepInSecond(2);
 		List<WebElement> selectedNumber = driver.findElements(By.cssSelector("ol#selectable li.ui-selected"));
-		Assert.assertEquals(selectedNumber.size(),4);
+		Assert.assertEquals(selectedNumber.size(), 4);
 	}
-		@Test
-		public void TC_04_Click_And_hold_random() {
-			// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug sau 3s
-			// Khi chạy thì ko được dùng chuột
-			driver.get("https://automationfc.github.io/jquery-selectable/");
-			List<WebElement> allNumbers = driver.findElements(By.cssSelector("ol#selectable li"));
-			// Nhấn phím control xuống
-			action.keyDown(Keys.CONTROL).perform(); // Control--> chỉ chạy được trên window
-			// Click từng số		
-			action.click(allNumbers.get(0))
-			.click(allNumbers.get(2))
-			.click(allNumbers.get(5))
-			.click(allNumbers.get(11))
-			.perform();		
+
+	//@Test
+	public void TC_04_Click_And_hold_random() {
+		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug
+		// sau 3s
+		// Khi chạy thì ko được dùng chuột
+		driver.get("https://automationfc.github.io/jquery-selectable/");
+		List<WebElement> allNumbers = driver.findElements(By.cssSelector("ol#selectable li"));
+		// Nhấn phím control xuống
+		action.keyDown(Keys.CONTROL).perform(); // Control--> chỉ chạy được trên window
+		// Click từng số
+		action.click(allNumbers.get(0)).click(allNumbers.get(2)).click(allNumbers.get(5)).click(allNumbers.get(11))
+				.perform();
+		sleepInSecond(2);
 
 	}
+
+	@Test
+	public void TC_05_Double_Click_() {
+		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug
+		// sau 3s
+		// Khi chạy thì ko được dùng chuột
+		// Với Firefox thì nếu element ko nằm trong view port thì sẽ ko click đc --> cần scroll đến để view
+		// Lỗi này ko bị trên Chromium browsers
+		driver.get("https://automationfc.github.io/basic-form/index.html");
+		action.doubleClick(driver.findElement(By.xpath("//button[text()='Double click me']"))).perform();
+		sleepInSecond(2);
+		Assert.assertEquals((driver.findElement(By.cssSelector("div.container p#demo")).getText()),
+				"Hello Automation Guys!");
+		sleepInSecond(2);
+	}
+
 	private void sleepInSecond(long timeout) {
 		try {
 			Thread.sleep(timeout * 1000);
