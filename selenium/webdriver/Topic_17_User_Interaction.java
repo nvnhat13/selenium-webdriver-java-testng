@@ -127,7 +127,7 @@ public class Topic_17_User_Interaction {
 
 	}
 
-	@Test
+	//@Test
 	public void TC_05_Double_Click_() {
 		// Bật debug hoặc dùng lệnh setTimeout(() =>{debugger;},3000); --> chạy debug
 		// sau 3s
@@ -141,6 +141,21 @@ public class Topic_17_User_Interaction {
 				"Hello Automation Guys!");
 		sleepInSecond(2);
 	}
+@Test
+	public void TC_05_Right_Click_() {
+		
+		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
+		// right click vào button
+		action.contextClick(driver.findElement(By.cssSelector("span.context-menu-one"))).perform();
+		sleepInSecond(2);
+		Assert.assertEquals((driver.findElement(By.cssSelector("li.context-menu-icon-quit span")).getText()),
+				"Quit");
+		action.click(driver.findElement(By.cssSelector("li.context-menu-icon-quit span"))).perform();
+		sleepInSecond(2);
+		driver.switchTo().alert().accept();
+		sleepInSecond(2);
+		Assert.assertFalse(driver.findElement(By.cssSelector("li.context-menu-icon-quit span")).isDisplayed());
+}
 
 	private void sleepInSecond(long timeout) {
 		try {
