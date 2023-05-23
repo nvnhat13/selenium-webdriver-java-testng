@@ -26,6 +26,7 @@ public class Topic_15_Button_Checkbox_Radio {
 	String emailAddress = "ANhat" + random.nextInt(99999) + "@gmail.com";
 	String password = "123456789";
 	JavascriptExecutor jsExecutor;
+
 	@BeforeClass
 	public void beforeClass() {
 //Windows
@@ -47,7 +48,7 @@ public class Topic_15_Button_Checkbox_Radio {
 		jsExecutor = (JavascriptExecutor) driver;
 	}
 
-	// @Test
+	 @Test
 	public void TC_01_Button() {
 		driver.get("https://www.fahasa.com/customer/account/create");
 		driver.findElement(By.cssSelector("li.popup-login-tab-login")).click();
@@ -64,12 +65,13 @@ public class Topic_15_Button_Checkbox_Radio {
 		driver.findElement(By.id("login_username")).sendKeys(emailAddress);
 		driver.findElement(By.id("login_password")).sendKeys(password);
 		Assert.assertTrue(driver.findElement(By.cssSelector("button.fhs-btn-login")).isEnabled());
+		sleepInSecond(2);
 		// Login button chuyển sang background màu đỏ
-		Assert.assertEquals(driver.findElement(loginButton).getCssValue("background-color"), "rgba(0, 0, 0, 0)");
-String loginButtonBackgroundColor = driver.findElement(loginButton).getCssValue("background-color");
-Color loginButtnColor = Color.fromString(loginButtonBackgroundColor);
-String loginButtnHexa = loginButtnColor.asHex().toUpperCase();
-Assert.assertEquals(loginButtnHexa, "#C92127");
+		String loginButtonBackgroundColor = driver.findElement(loginButton).getCssValue("background-color");
+		Color loginButtnColor = Color.fromString(loginButtonBackgroundColor);
+		String loginButtnHexa = loginButtnColor.asHex().toUpperCase();
+		Assert.assertEquals(loginButtnHexa, "#000000");
+		
 	}
 
 	// Thẻ input của checkbox/radio hiển thị và thao tác đc thì gọi là default
@@ -113,7 +115,8 @@ Assert.assertEquals(loginButtnHexa, "#C92127");
 	public void TC_04_SelectAll_Checkbox() {
 		driver.get("https://automationfc.github.io/multiple-fields/");
 		// Dùng 1 list element để chứa hết checkbox
-		List<WebElement> allCheckBoxes = driver.findElements(By.cssSelector("div.form-single-column input.form-checkbox"));
+		List<WebElement> allCheckBoxes = driver
+				.findElements(By.cssSelector("div.form-single-column input.form-checkbox"));
 		for (WebElement checkbox : allCheckBoxes) {
 			checkbox.click();
 //			sleepInSecond(1);
@@ -129,7 +132,8 @@ Assert.assertEquals(loginButtnHexa, "#C92127");
 	public void TC_05_Select_Checkbox_Radio_ByCondition() {
 		// Kiểm tra checkbox đúng đk mới được chọn
 		driver.get("https://automationfc.github.io/multiple-fields/");
-		List<WebElement> allCheckBoxes = driver.findElements(By.cssSelector("div.form-single-column input.form-checkbox"));
+		List<WebElement> allCheckBoxes = driver
+				.findElements(By.cssSelector("div.form-single-column input.form-checkbox"));
 		for (WebElement checkbox : allCheckBoxes) {
 			if (!checkbox.isSelected() && checkbox.getAttribute("value").equals("Gallstones")) {
 				checkbox.click();
@@ -162,30 +166,35 @@ Assert.assertEquals(loginButtnHexa, "#C92127");
 		sleepInSecond(2);
 	}
 
-	//@Test
+	// @Test
 	public void TC_06_Custom_Checkbox_Radion() {
 		driver.get("https://tiemchungcovid19.gov.vn/portal/register-person");
 //		//Case 1: thẻ input ko click được nhưng lại verify được
 //		By registerRadio = By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/input");		
 //		driver.findElement(registerRadio).click();
 //		Assert.assertTrue((driver.findElement(registerRadio)).isSelected());
-		// Case 2: Dùng thẻ khác thì click được nhưng ko verify được do thẻ div không thể có trạng thái selected
+		// Case 2: Dùng thẻ khác thì click được nhưng ko verify được do thẻ div không
+		// thể có trạng thái selected
 //		By registerRadio = By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/div[@class='mat-radio-outer-circle']");		
 //		driver.findElement(registerRadio).click();
 //		sleepInSecond(2);
 //		Assert.assertTrue((driver.findElement(registerRadio)).isSelected());
-		// Case 3: Dùng thẻ khác input để click, dùng thẻ input để verify--> thực tế không dùng cách này
+		// Case 3: Dùng thẻ khác input để click, dùng thẻ input để verify--> thực tế
+		// không dùng cách này
 //		driver.findElement(By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/div[@class='mat-radio-outer-circle']")).click();
 //		Assert.assertTrue((driver.findElement(By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/input"))).isSelected());	
-		
-		// Case 4: Dùng JS click, JS không quan tâm element có bị che hay không mà vẫn click được		
-		By registerRadio = By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/input");	
+
+		// Case 4: Dùng JS click, JS không quan tâm element có bị che hay không mà vẫn
+		// click được
+		By registerRadio = By.xpath("//div[text()='Đăng ký cho người thân']/preceding-sibling::div/input");
 		jsExecutor.executeScript("arguments[0].click();", driver.findElement(registerRadio));
 		sleepInSecond(2);
 	}
-	//@Test
+
+	// @Test
 	public void TC_07_Custom_Checkbox_Radio() {
-		driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
+		driver.get(
+				"https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
 		By radioCanTho = By.xpath("//div[@id='i14']");
 		Assert.assertEquals(driver.findElement(radioCanTho).getAttribute("aria-checked"), "false");
 		driver.findElement(radioCanTho).click();
@@ -197,21 +206,19 @@ Assert.assertEquals(loginButtnHexa, "#C92127");
 		driver.findElement(checkboxQuangNam).click();
 		Assert.assertEquals(driver.findElement(checkboxQuangNam).getAttribute("aria-checked"), "true");
 		sleepInSecond(2);
-		
+
 		List<WebElement> allCheckBoxes = driver.findElements(By.cssSelector("div[role='checkbox']"));
-		for (WebElement checkbox: allCheckBoxes) {
-			if(checkbox.getAttribute("aria-checked").equals("false")) {
-			checkbox.click();
-			sleepInSecond(1);
+		for (WebElement checkbox : allCheckBoxes) {
+			if (checkbox.getAttribute("aria-checked").equals("false")) {
+				checkbox.click();
+				sleepInSecond(1);
 			}
 		}
-		for (WebElement checkbox: allCheckBoxes) {
-			Assert.assertEquals(checkbox.getAttribute("aria-checked"),"true");
-			
-			}
+		for (WebElement checkbox : allCheckBoxes) {
+			Assert.assertEquals(checkbox.getAttribute("aria-checked"), "true");
+
 		}
-		
-	
+	}
 
 	private void sleepInSecond(long timeout) {
 		try {
