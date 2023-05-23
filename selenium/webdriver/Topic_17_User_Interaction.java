@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -141,7 +142,7 @@ public class Topic_17_User_Interaction {
 				"Hello Automation Guys!");
 		sleepInSecond(2);
 	}
-@Test
+//@Test
 	public void TC_05_Right_Click_() {
 		
 		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
@@ -156,7 +157,30 @@ public class Topic_17_User_Interaction {
 		sleepInSecond(2);
 		Assert.assertFalse(driver.findElement(By.cssSelector("li.context-menu-icon-quit span")).isDisplayed());
 }
+@Test
+	public void TC_06_Drag_Drop_HTML4() {
+	
+	driver.get("https://automationfc.github.io/kendo-drag-drop/");
+	action.dragAndDrop(driver.findElement(By.cssSelector("div#draggable")), driver.findElement(By.xpath("//div[text()='Drag the small circle here.']"))).perform();
+	sleepInSecond(2);
+	Assert.assertEquals(driver.findElement(By.cssSelector("div#droptarget")).getText(),"You did great!");
+	String targetCircle = driver.findElement(By.cssSelector("div#droptarget")).getCssValue("background-color");
+	Color targetCircleColor = Color.fromString(targetCircle);
+	String targetCircleHexa = targetCircleColor.asHex().toUpperCase();
+	Assert.assertEquals(targetCircleHexa, "#03A9F4");
+}
+@Test
+public void TC_07_Drag_Drop_HTML5() {
 
+driver.get("https://automationfc.github.io/drag-drop-html5/");
+
+}
+@Test
+public void TC_08_Drag_Drop_HTML5_Css() {
+driver.get("https://automationfc.github.io/kendo-drag-drop/");
+}
+// Các case ko nên làm auto: 
+// Captcha, Drag& Drop, SMS, OTP, Barcode, QR Code, Chart, Canvas, GG, FB, Game, Flex, Flash
 	private void sleepInSecond(long timeout) {
 		try {
 			Thread.sleep(timeout * 1000);

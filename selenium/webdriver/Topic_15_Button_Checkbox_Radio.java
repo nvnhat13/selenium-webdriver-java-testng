@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -65,7 +66,10 @@ public class Topic_15_Button_Checkbox_Radio {
 		Assert.assertTrue(driver.findElement(By.cssSelector("button.fhs-btn-login")).isEnabled());
 		// Login button chuyển sang background màu đỏ
 		Assert.assertEquals(driver.findElement(loginButton).getCssValue("background-color"), "rgba(0, 0, 0, 0)");
-
+String loginButtonBackgroundColor = driver.findElement(loginButton).getCssValue("background-color");
+Color loginButtnColor = Color.fromString(loginButtonBackgroundColor);
+String loginButtnHexa = loginButtnColor.asHex().toUpperCase();
+Assert.assertEquals(loginButtnHexa, "#C92127");
 	}
 
 	// Thẻ input của checkbox/radio hiển thị và thao tác đc thì gọi là default
@@ -179,7 +183,7 @@ public class Topic_15_Button_Checkbox_Radio {
 		jsExecutor.executeScript("arguments[0].click();", driver.findElement(registerRadio));
 		sleepInSecond(2);
 	}
-	@Test
+	//@Test
 	public void TC_07_Custom_Checkbox_Radio() {
 		driver.get("https://docs.google.com/forms/d/e/1FAIpQLSfiypnd69zhuDkjKgqvpID9kwO29UCzeCVrGGtbNPZXQok0jA/viewform");
 		By radioCanTho = By.xpath("//div[@id='i14']");
