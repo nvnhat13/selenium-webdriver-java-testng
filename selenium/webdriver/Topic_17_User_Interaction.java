@@ -10,9 +10,6 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
-import javax.swing.JSeparator;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -36,10 +33,8 @@ public class Topic_17_User_Interaction {
 	String osName = System.getProperty("os.name");
 	Random random = new Random();
 	WebDriverWait explicitlyWait;
-
 	String dragDropFile = projectPath + "\\dragAndDrop\\drag_and_drop_helper.js";
 	
-
 	@BeforeClass
 	public void beforeClass() {
 		// Windows
@@ -50,6 +45,7 @@ public class Topic_17_User_Interaction {
 //		else {
 //			System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/geckodriver.exe");
 //		}
+//		driver = new FirefoxDriver();
 		if (osName.contains("Windows")) {
 			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
 		}
@@ -57,13 +53,14 @@ public class Topic_17_User_Interaction {
 		else {
 			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/chromedriver.exe");
 		}
-
 		driver = new ChromeDriver();
+		
 		explicitlyWait = new WebDriverWait(driver, 10);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		action = new Actions(driver);
-		
+	    jsExecutor = (JavascriptExecutor) driver;
+
 	}
 
 	// @Test
@@ -189,7 +186,7 @@ public class Topic_17_User_Interaction {
 	}
 
 //  HTML5 full support cho JavaScript ( dùng cho hầu hết các trình duyệt )
-	@Test
+	//@Test
 	public void TC_07_Drag_Drop_HTML5() throws IOException {
 
 		driver.get("https://automationfc.github.io/drag-drop-html5/");

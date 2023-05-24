@@ -14,13 +14,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 
-public class Topic_00_Template {
+public class Topic_18_Fixed_Popup {
 
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
 	Random random = new Random();
-	WebDriverWait explicitlyWait;	
+	WebDriverWait explicitlyWait;
 	JavascriptExecutor jsExecutor;
 
 
@@ -34,23 +34,23 @@ public class Topic_00_Template {
 //		else {
 //			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver.exe");
 //		}
+//
+//		driver = new FirefoxDriver();
+		
 		if (osName.contains("Windows")) {
 			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
 		}
 		// MacOS
 		else {
-			System.setProperty("webdriver.chrome.driver", projectPath + "/browserDrivers/chromedriver.exe");
+			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/chromedriver.exe");
 		}
-
-//		driver = new FirefoxDriver();
 		driver = new ChromeDriver();
-	    jsExecutor = (JavascriptExecutor) driver;
 		// Hàm explicitlyWait dùng cho việc kiểm tra trạng thái của element: hiển thị/ko hiển thị/ presence/ staleness
 		explicitlyWait = new WebDriverWait(driver,10);
 		// Hàm implicitlyWait dùng cho việc tìm element (findElement/ findElements)
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-
+		driver.get("http://live.techpanda.org/index.php/customer/account/login/");
 	}
 
 	@Test
