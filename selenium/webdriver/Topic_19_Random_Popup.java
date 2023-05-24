@@ -1,5 +1,6 @@
 package webdriver;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +25,8 @@ public class Topic_19_Random_Popup {
 	Random random = new Random();
 	WebDriverWait explicitlyWait;
 	JavascriptExecutor jsExecutor;
-
+	Random rand = new Random();
+	String emailAddress = "Anhat" + rand.nextInt(9999) + "@gmail.com";;
 
 	@BeforeClass
 	public void beforeClass() {
@@ -57,22 +59,29 @@ public class Topic_19_Random_Popup {
 
 	@Test
 	public void TC_01_Random_Popup_In_DOM_Java() {
+		// Step 1:
 		driver.get("https://www.javacodegeeks.com/");
-		// Luôn có trong HTML dù có hiển thị hoặc ko
-		// Click button Đăng nhập
-
-		sleepInSecond(2);
-		// Check hiển thị popup đăng nhập
+		// Step 2: Kiểm tra popup trong 2 trường hợp
+		// Có xuất hiện: Nhập email hợp lệ và click Get the Books
+		// Ko xuất hiện: Chuyển step 3, element của popup vẫn còn trong DOM
+		// List elements
+		By firstStep = By.cssSelector("div[data-title='Newsletter Free eBooks']:not([data-page='confirmation'])");
+		By secondStep = By.cssSelector("div[data-title='Newsletter Free eBooks'][data-page='confirmation']");
+		List<WebElement> firstStepElement= driver.findElements(firstStep);
+		// Nếu nó có hiển thị thì nhập dữ liệu vào và click Ok
+		// Xử lý step tiếp theo đến khi nào đóng popup
+		if(firstStepElement.size() > 0 && firstStepElement.get(0).isDisplayed()) {
+			driver.findElement(By.cssSelector("input[placeholder='Your Email']")).sendKeys(emailAddress);
+			sleepInSecond(5);
+			driver.findElement(By.cssSelector("a[data-label='OK']")).click();
+			Assert.assertTrue(driver.findElement(secondStep).isDisplayed());
+			sleepInSecond(5);
+			
+		}
 		
-		// Nhập thông tin vào username/password
 		
-		// Click đăng nhập và verify message hiển thị: Tài khoản không tồn tại!
-
-		sleepInSecond(2);
-
-		// Đóng popup
-		sleepInSecond(2);
-		// Kiểm tra popup đăng nhập không hiển thị
+	
+		
 
 		
 	}
