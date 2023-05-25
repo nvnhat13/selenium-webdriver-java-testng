@@ -57,10 +57,11 @@ public class Topic_19_Random_Popup {
 	
 	}
 
-	@Test
-	public void TC_01_Random_Popup_In_DOM_Java() {
-		// Step 1:
+	//@Test
+	public void TC_01_Random_Popup_Not_In_HTML_JavaCodeGeeks() {
+		// Step 1: Mới mở page ra thì popup chưa có trong HTML --> dùng findElements
 		driver.get("https://www.javacodegeeks.com/");
+		sleepInSecond(15);
 		// Step 2: Kiểm tra popup trong 2 trường hợp
 		// Có xuất hiện: Nhập email hợp lệ và click Get the Books
 		// Ko xuất hiện: Chuyển step 3, element của popup vẫn còn trong DOM
@@ -73,44 +74,62 @@ public class Topic_19_Random_Popup {
 		if(firstStepElement.size() > 0 && firstStepElement.get(0).isDisplayed()) {
 			driver.findElement(By.cssSelector("input[placeholder='Your Email']")).sendKeys(emailAddress);
 			sleepInSecond(5);
-			driver.findElement(By.cssSelector("a[data-label='OK']")).click();
-			Assert.assertTrue(driver.findElement(secondStep).isDisplayed());
+			driver.findElement(By.xpath("span[text()='OK'] or [text()='Get the Books']")).click();
 			sleepInSecond(5);
-			
+			Assert.assertTrue(driver.findElement(secondStep).isDisplayed());
+			sleepInSecond(10);
+			Assert.assertFalse(driver.findElement(firstStep).isDisplayed());
+			Assert.assertFalse(driver.findElement(secondStep).isDisplayed());
 		}
-		
-		
-	
-		
-
-		
+		sleepInSecond(5);
+		// Nếu nó không hiển thị thì qua step tiếp theo
+		driver.findElement(By.cssSelector("input#search-input")).sendKeys("Agile Testing Explained");
+		driver.findElement(By.cssSelector("form#search span.tie-icon-search")).click();
+		sleepInSecond(2);
+		Assert.assertEquals(driver.findElement(By.cssSelector("h1.page-title>span")).getText(), "Agile Testing Explained");	
 	}
 
 	//@Test
-	public void TC_02_Random_Popup_In_DOM_vnk() {
+	public void TC_02_Random_Popup_In_HTML_VNK() {
 		driver.get("https://vnk.edu.vn/");
-		// Luôn có trong HTML dù có hiển thị hoặc ko
-		// Click button Đăng nhập
+		sleepInSecond(30);
 
+		By popup = By.cssSelector("div#tve_editor");
+		// Luôn có trong HTML --> dùng findElement
+		if (driver.findElement(popup).isDisplayed()) {
+			driver.findElement(By.cssSelector("div.tcb-icon-display")).click();
+			sleepInSecond(2);
+			Assert.assertFalse(driver.findElement(popup).isDisplayed());
+		}
+		// Next step
+		driver.findElement(By.cssSelector("button.btn-danger")).click();
 		sleepInSecond(2);
-		// Check hiển thị popup đăng nhập
-		
-		// Nhập thông tin vào username/password
-		
-		// Click đăng nhập và verify message hiển thị: Tài khoản không tồn tại!
+		Assert.assertEquals(driver.getCurrentUrl(), "https://vnk.edu.vn/lich-khai-giang/");
 
-		sleepInSecond(2);
-
-		// Đóng popup
-		sleepInSecond(2);
-		// Kiểm tra popup đăng nhập không hiển thị
 	
 	}
 
-	//@Test
-	public void TC_03_Random_Popup_In_DOM_dehieu() {
+	@Test
+	public void TC_03_Random_Popup_Not_In_HTML_dehieu() {
 		driver.get("https://dehieu.vn/");
+		sleepInSecond(10);
+		// Step 2: Kiểm tra popup trong 2 trường hợp
+		// Có xuất hiện: Nhập email hợp lệ và click Get the Books
+		// Ko xuất hiện: Chuyển step 3, element của popup vẫn còn trong DOM
+		// List elements
 		
+		List<WebElement> firstStepElement= driver.findElements(By.cssSelector("section#popup"));
+		// Nếu nó có hiển thị thì nhập dữ liệu vào và click Ok
+		// Xử lý step tiếp theo đến khi nào đóng popup
+		if(firstStepElement.size() > 0 && firstStepElement.get(0).isDisplayed()) {
+			driver.findElement(By.cssSelector("button.close")).click();
+			sleepInSecond(5);
+		}
+		// Nếu nó không hiển thị thì qua step tiếp theo
+				driver.findElement(By.xpath("//a[text()='Tất cả khóa học']")).click();
+				sleepInSecond(5);
+				Assert.assertEquals(driver.getCurrentUrl(),"https://dehieu.vn/khoa-hoc");
+			
 
 	}
 		
