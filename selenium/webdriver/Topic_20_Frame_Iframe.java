@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -27,7 +28,7 @@ public class Topic_20_Frame_Iframe {
 	JavascriptExecutor jsExecutor;
 	Random rand = new Random();
 	String emailAddress = "Anhat" + rand.nextInt(9999) + "@gmail.com";;
-
+	Select select;
 	@BeforeClass
 	public void beforeClass() {
 ////Windows
@@ -62,22 +63,41 @@ public class Topic_20_Frame_Iframe {
 	public void TC_01_Kyna() {
 		// Step 1: Mới mở page ra thì popup chưa có trong HTML --> dùng findElements
 		driver.get("https://skills.kynaenglish.vn/");
-		sleepInSecond(4);
+		sleepInSecond(2);
+		WebElement facebookIframe = driver.findElement(By.cssSelector("div.fanpage iframe"));
+		// verify iframe hiển thị
+		Assert.assertTrue(facebookIframe.isDisplayed());
 		// Cần phải switch qua frame/iframe  bằng 3 cách sau, nên dùng cách 3 nhiều hơn
 		//driver.switchTo().frame(0); // cách 1
 		
 		//driver.switchTo().frame(""); // cách 2, bắt buộc iframe phải có thuộc tính ID hoặc NAME, nếu ko thì có thể lấy từ các node cha
 		
 		driver.switchTo().frame(driver.findElement(By.cssSelector("div.fanpage iframe"))); // cách 3
+		sleepInSecond(2);
 		
-		//driver.findElement(By.cssSelector("a[class='_1drp _5lv6']")).click();
-		
-
+		String facebookLike =driver.findElement(By.xpath("//a[@title='Kyna.vn']/parent::div/following-sibling::div")).getText();
+		System.out.println(facebookLike);
 	
-		
-		
-		
-		
+		// swicth về page trước đó
+		driver.switchTo().defaultContent();
+		sleepInSecond(2);
+		driver.findElement(By.cssSelector("input#live-search-bar")).sendKeys("Excel");
+		sleepInSecond(2);
+		// swicth về page trước đó
+		driver.switchTo().defaultContent();
+		driver.switchTo().frame("cs_chat_iframe");
+		driver.findElement(By.cssSelector("div.border_overlay")).click();
+		sleepInSecond(2);
+		driver.findElement(By.cssSelector("input.input_name")).sendKeys("MrNhat");
+		driver.findElement(By.cssSelector("input.input_phone")).sendKeys("123456789");
+		select = new Select(driver.findElement(By.cssSelector("select#serviceSelect")));
+		select.selectByVisibleText("TƯ VẤN TUYỂN SINH");
+		driver.findElement(By.cssSelector("textarea[name='message']")).sendKeys("Excel");
+		sleepInSecond(2);
+		driver.switchTo().defaultContent();
+		driver.findElement(By.cssSelector("input#live-search-bar")).sendKeys("Excel");
+
+
 		
 			}
 
