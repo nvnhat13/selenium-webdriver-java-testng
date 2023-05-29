@@ -59,7 +59,7 @@ public class Topic_20_Frame_Iframe {
 
 	}
 
-	@Test
+	//@Test
 	public void TC_01_Kyna() {
 		// Step 1: Mới mở page ra thì popup chưa có trong HTML --> dùng findElements
 		driver.get("https://skills.kynaenglish.vn/");
@@ -112,22 +112,29 @@ public class Topic_20_Frame_Iframe {
 		}
 
 
-
 		
 			}
 
-	//@Test
-	public void TC_02_Random_Popup_In_HTML_VNK() {
-		driver.get("https://vnk.edu.vn/");
-	
-	
+	@Test
+	public void TC_02_HDFC_Bank() {
+		driver.get("https://netbanking.hdfcbank.com/netbanking/");
+		// https://netbanking.hdfcbank.com/netbanking/
+		// switch vào frame
+		driver.switchTo().frame("login_page");
+		// nhập userID
+		driver.findElement(By.name("fldLoginUserId")).sendKeys("MrNhat");
+		// Click Continue
+		driver.findElement(By.cssSelector("a.login-btn")).click();
+		sleepInSecond(3);
+		// swicth về page trước đó
+		driver.switchTo().defaultContent();
+		// Verify PW hiển thị
+		Assert.assertTrue(driver.findElement(By.id("keyboard")).isDisplayed());
+		driver.findElement(By.id("keyboard")).sendKeys("MrNhat");
+		sleepInSecond(3);
 	}
 
-	//@Test
-	public void TC_03_Random_Popup_Not_In_HTML_dehieu() {
-		driver.get("https://dehieu.vn/");
-		
-	}
+	
 		
 	private void sleepInSecond(long timeout) {
 		   try {
