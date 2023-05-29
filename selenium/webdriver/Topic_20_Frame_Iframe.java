@@ -90,12 +90,27 @@ public class Topic_20_Frame_Iframe {
 		sleepInSecond(2);
 		driver.findElement(By.cssSelector("input.input_name")).sendKeys("MrNhat");
 		driver.findElement(By.cssSelector("input.input_phone")).sendKeys("123456789");
-		select = new Select(driver.findElement(By.cssSelector("select#serviceSelect")));
-		select.selectByVisibleText("TƯ VẤN TUYỂN SINH");
-		driver.findElement(By.cssSelector("textarea[name='message']")).sendKeys("Excel");
-		sleepInSecond(2);
+		 new Select(driver.findElement(By.cssSelector("select#serviceSelect"))).selectByVisibleText("HỖ TRỢ KỸ THUẬT");
+		driver.findElement(By.name("message")).sendKeys("Testing Iframe");
+		sleepInSecond(5);
+		// Switch về trang trước đó (ko switch đc từ iframe này sang iframe khác, mà phải back về trang default trước đó)
 		driver.switchTo().defaultContent();
-		driver.findElement(By.cssSelector("input#live-search-bar")).sendKeys("Excel");
+		//driver.findElement(By.cssSelector("input#live-search-bar")).sendKeys("Excel");
+		String keywords = "Excel";
+		driver.findElement(By.cssSelector("input#live-search-bar")).clear();
+		driver.findElement(By.cssSelector("input#live-search-bar")).sendKeys(keywords);
+		sleepInSecond(5);
+		driver.findElement(By.cssSelector("button.search-button")).click();
+		
+		List<WebElement> courseName = driver.findElements(By.cssSelector("div.content>h4"));
+		// Verify course number
+		Assert.assertEquals(courseName.size(),9);
+		// Verify course name
+		for (WebElement course : courseName) {
+			System.out.println(course.getText());
+			Assert.assertTrue(course.getText().contains(keywords));
+		}
+
 
 
 		
