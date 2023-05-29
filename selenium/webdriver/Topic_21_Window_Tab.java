@@ -1,6 +1,5 @@
 package webdriver;
 
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -8,9 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -82,17 +79,30 @@ public class Topic_21_Window_Tab {
 		switchToWindowById(googleID);
 
 		driver.findElement(By.xpath("//a[text()='FACEBOOK']")).click();
-		sleepInSecond(2);			
-		driver.switchTo().window(googleID);
+		sleepInSecond(2);	
+		switchToWindowByTitle("Facebook – log in or sign up");
 		sleepInSecond(2);
-
+		System.out.println(driver.getCurrentUrl());
+		System.out.println(driver.getTitle());
+		
+		sleepInSecond(2);			
+		driver.switchTo().window(gitHubId);
+		sleepInSecond(2);
+		driver.findElement(By.xpath("//a[text()='TIKI']")).click();
+		sleepInSecond(2);
+		switchToWindowByTitle("Tiki - Mua hàng online giá tốt, hàng chuẩn, ship nhanh");
+		sleepInSecond(2);
+		System.out.println(driver.getCurrentUrl());
+		System.out.println(driver.getTitle());
+		sleepInSecond(2);
+		
+		closeAllWindowWithoutExpectedID(gitHubId);
 			}
 
-	//@Test
-	public void TC_02_HDFC_Bank() {
-		driver.get("http://live.techpanda.org/");
-		
+	private void switchToWindowByTitle(String facebookID) {
+		// TODO Auto-generated method stub		
 	}
+
 	private void sleepInSecond(long timeout) {
 		   try {
 				Thread.sleep(timeout*1000);
@@ -101,6 +111,7 @@ public class Topic_21_Window_Tab {
 				e.printStackTrace();
 			}
 	   };
+	   // Chuyển đến tab ID
    public void switchToWindowById(String windowId) {
 	   Set<String> allWindowIds = driver.getWindowHandles();
 		for (String id : allWindowIds){
@@ -110,9 +121,20 @@ public class Topic_21_Window_Tab {
 			}
 		}
 	   }
+   // Đóng tất cả các tab ngoại trừ tab parent
+	public void closeAllWindowWithoutExpectedID(String expectedID) {
+		 Set<String> allWindowIds = driver.getWindowHandles();
+		 for (String id : allWindowIds){
+			 if (!id.equals(expectedID)) {
+					driver.switchTo().window(id);
+					driver.close();
+			 }		
+		 }	 
+		 driver.switchTo().window(expectedID);
+	}
 	@AfterClass
 	public void afterClass() {
-		driver.quit();
+		//driver.quit();
 	}
 
 
