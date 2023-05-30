@@ -57,7 +57,7 @@ public class Topic_21_Window_Tab {
 
 	}
 
-	@Test
+	//@Test
 	public void TC_01_Google() {
 		//
 		driver.get("https://automationfc.github.io/basic-form/index.html");
@@ -99,6 +99,43 @@ public class Topic_21_Window_Tab {
 		closeAllWindowWithoutExpectedID(gitHubId);
 			}
 
+	//@Test
+		public void TC_02_KynaEnglish() {
+			//
+		driver.get("https://skills.kynaenglish.vn/");
+		driver.findElement(By.xpath("//div[@class='hotline']//img[@alt='facebook']")).click();
+		sleepInSecond(2);
+		switchToWindowByTitle("Kyna.vn | Ho Chi Minh City | Facebook");
+		sleepInSecond(2);
+		By popup = By.cssSelector("div[role='dialog']");
+		// Luôn có trong HTML --> dùng findElement
+		if (driver.findElement(popup).isDisplayed()) {
+			driver.findElement(By.cssSelector("div[aria-label='Close']")).click();
+			sleepInSecond(2);
+		}
+		switchToWindowByTitle("Kyna.vn - Học online cùng chuyên gia");
+		sleepInSecond(2);
+	}
+		@Test
+		public void TC_03_techPanda() {
+			//
+		driver.get("http://live.techpanda.org/");
+		driver.findElement(By.xpath("//div[@id='header-nav']//a[text()='Mobile']")).click();
+		sleepInSecond(2);
+		driver.findElement(By.xpath("//a[@title='Sony Xperia']/parent::h2/following-sibling::div[@class='actions']//a[@class='link-compare']")).click();
+		sleepInSecond(2);
+		Assert.assertEquals(driver.findElement(By.cssSelector("li.success-msg span")).getText(),"The product Sony Xperia has been added to comparison list.");
+		
+		driver.findElement(By.xpath("//a[@title='Samsung Galaxy']/parent::h2/following-sibling::div[@class='actions']//a[@class='link-compare']")).click();
+		sleepInSecond(2);
+		Assert.assertEquals(driver.findElement(By.cssSelector("li.success-msg span")).getText(),"The product Samsung Galaxy has been added to comparison list.");
+		driver.findElement(By.xpath("//span[text()='Compare']")).click();
+		sleepInSecond(2);
+		}
+		
+		
+		
+		
 	private void switchToWindowByTitle(String facebookID) {
 		// TODO Auto-generated method stub		
 	}
@@ -134,7 +171,7 @@ public class Topic_21_Window_Tab {
 	}
 	@AfterClass
 	public void afterClass() {
-		//driver.quit();
+		driver.quit();
 	}
 
 
