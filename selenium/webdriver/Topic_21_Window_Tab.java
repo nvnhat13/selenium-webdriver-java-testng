@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -29,25 +30,25 @@ public class Topic_21_Window_Tab {
 	Select select;
 	@BeforeClass
 	public void beforeClass() {
-////Windows
-//		if (osName.contains("Windows")) {
-//			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
-//		}
-////MacOS
-//		else {
-//			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver.exe");
-//		}
-//
-//		driver = new FirefoxDriver();
-		
+//Windows
 		if (osName.contains("Windows")) {
-			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		}
-		// MacOS
+//MacOS
 		else {
-			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/chromedriver.exe");
+			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver.exe");
 		}
-		driver = new ChromeDriver();
+
+		driver = new FirefoxDriver();
+		
+//		if (osName.contains("Windows")) {
+//			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+//		}
+//		// MacOS
+//		else {
+//			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/chromedriver.exe");
+//		}
+//		driver = new ChromeDriver();
 		// Hàm explicitlyWait dùng cho việc kiểm tra trạng thái của element: hiển thị/ko hiển thị/ presence/ staleness
 		explicitlyWait = new WebDriverWait(driver,10);
 		// Hàm implicitlyWait dùng cho việc tìm element (findElement/ findElements)
@@ -120,19 +121,23 @@ public class Topic_21_Window_Tab {
 		public void TC_03_techPanda() {
 			//
 		driver.get("http://live.techpanda.org/");
-		driver.findElement(By.xpath("//div[@id='header-nav']//a[text()='Mobile']")).click();
-		sleepInSecond(2);
+		String techPandaID = driver.getWindowHandle();
+		driver.findElement(By.xpath("//a[text()='Mobile']")).click();
 		driver.findElement(By.xpath("//a[@title='Sony Xperia']/parent::h2/following-sibling::div[@class='actions']//a[@class='link-compare']")).click();
-		sleepInSecond(2);
-		Assert.assertEquals(driver.findElement(By.cssSelector("li.success-msg span")).getText(),"The product Sony Xperia has been added to comparison list.");
-		
+		Assert.assertEquals(driver.findElement(By.cssSelector("li.success-msg span")).getText(),"The product Sony Xperia has been added to comparison list.");		
 		driver.findElement(By.xpath("//a[@title='Samsung Galaxy']/parent::h2/following-sibling::div[@class='actions']//a[@class='link-compare']")).click();
-		sleepInSecond(2);
 		Assert.assertEquals(driver.findElement(By.cssSelector("li.success-msg span")).getText(),"The product Samsung Galaxy has been added to comparison list.");
-		driver.findElement(By.xpath("//span[text()='Compare']")).click();
-		sleepInSecond(2);
-		}
+		driver.findElement(By.xpath("//button[@title='Compare']")).click();
 		
+		switchToWindowById(techPandaID);
+		System.out.println(driver.getWindowHandle());
+		//Assert.assertEquals(driver.getWindowHandle(),"Products Comparison List - Magento Commerce");
+		
+		closeAllWindowWithoutExpectedID(techPandaID);
+		driver.findElement(By.xpath("//a[text()='Clear All']")).click();
+		sleepInSecond(2);
+
+		}
 		
 		
 		
